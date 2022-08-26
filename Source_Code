@@ -132,6 +132,24 @@ history = model.fit(
 )
 
 
+scores = model.evaluate(test_ds)
+
+import numpy as np
+for images_batch, labels_batch in test_ds.take(1):
+    
+    first_image = images_batch[0].numpy().astype('uint8')
+    first_label = labels_batch[0].numpy()
+    
+    print("first image to predict")
+    plt.imshow(first_image)
+    print("actual label:",class_names[first_label])
+    
+    batch_prediction = model.predict(images_batch)
+    print("predicted label:",class_names[np.argmax(batch_prediction[0])])
+
+    
+
+
 
 
 
