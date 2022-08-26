@@ -1,1 +1,80 @@
+# Using CNN model
+
+import tensorflow as tf
+from tensorflow.keras import models, layers
+import matplotlib.pyplot as plt
+
+batch_size= 32
+img_size = 256
+channels =3
+
+  from google.colab import drive
+drive.mount('/content/drive')
+
+dataset = tf.keras.preprocessing.image_dataset_from_directory(
+   "/content/drive/MyDrive/Final Face Detection Dataset",
+   shuffle=True,
+    image_size=(img_size,img_size),
+    batch_size= batch_size
+)
+
+class_names = dataset.class_names
+class_names
+
+class_names = dataset.class_names
+class_names
+
+plt.figure(figsize=(10, 10))
+for img_batch, label_batch in dataset.take(1):
+    for i in range(12):
+        ax = plt.subplot(3, 4, i + 1)
+        plt.imshow(img_batch[i].numpy().astype("uint8"))
+        plt.title(class_names[label_batch[i]])
+        plt.axis("off")
+
+       
+len(dataset)
+
+train_size = 0.8
+len(dataset)*train_size
+
+train_ds = dataset.take(442)
+len(train_ds)
+
+test_ds = dataset.skip(442)
+len(test_ds)
+
+val_size=0.1
+len(dataset)*val_size
+
+val_ds = test_ds.take(55)
+len(val_ds)
+
+test_ds = test_ds.skip(55)
+len(test_ds)
+
+def get_dataset_partitions(ds, train_split=0.8, val_split=0.1, test_split=0.1, shuffle=True):
+    assert (train_split + test_split + val_split) == 1
+    
+    dataset_size = len(ds)
+    
+    train_size = int(train_split * dataset_size)
+    val_size = int(val_split * dataset_size)
+    
+    train_ds = ds.take(train_size)    
+    val_ds = ds.skip(train_size).take(val_size)
+    test_ds = ds.skip(train_size).skip(val_size)
+    
+    return train_ds, val_ds, test_ds
+
+
+
+
+
+
+
+
+
+
+
 
