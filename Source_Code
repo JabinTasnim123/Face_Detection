@@ -281,6 +281,12 @@ y_hat = grid.predict(X_test)
 grid.plot_sample(target_names, y_hat)
 
 
+grid.report(target_names, y_test, y_hat)
+
+
+grid.heatmap(target_names, y_test, y_hat)
+
+
 
 
 
