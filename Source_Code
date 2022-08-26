@@ -175,7 +175,7 @@ for images, labels in test_ds.take(1):
 
 
 
-# Using Gridsearchcv
+# Using GridSearchcv
 
 import seaborn as sns
 import sklearn
@@ -272,7 +272,13 @@ class GridSearch():
 
 
 
+grid = GridSearch()
 
+grid.fit(X_train, y_train)
+
+
+y_hat = grid.predict(X_test)
+grid.plot_sample(target_names, y_hat)
 
 
 
