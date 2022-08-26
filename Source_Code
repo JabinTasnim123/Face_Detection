@@ -175,6 +175,54 @@ for images, labels in test_ds.take(1):
 
 
 
+# Using Gridsearchcv
+
+import seaborn as sns
+import sklearn
+from sklearn.svm import SVC
+from sklearn.datasets import fetch_lfw_people
+from sklearn.decomposition import PCA as RandomizedPCA
+from sklearn.pipeline import make_pipeline
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+
+sns.set(rc={'figure.figsize':(11.7,8.27)})
+
+
+
+faces = fetch_lfw_people(min_faces_per_person=50)
+X = faces.data
+y = faces.target
+target_names = faces.target_names
+n_classes = target_names.shape[0]
+
+print("Total dataset size:")
+print("Number_of_classes: 258")
+
+
+class dataset():
+    
+    def __init__(self, min_faces_per_person):
+        self.faces = fetch_lfw_people(min_faces_per_person=50)
+    
+    def draw_figure(self):
+        fig, ax = plt.subplots(3, 5)
+        for i, axi in enumerate(ax.flat):
+            axi.imshow(self.faces.images[i], cmap='bone')
+            axi.set(xticks=[], yticks=[],
+            xlabel=self.faces.target_names[self.faces.target[i]])
+            
+    def get_x_y(self):
+        return self.faces.data, self.faces.target, self.faces.target_names
+
+
+faceRecog_ds = dataset(50)
+faceRecog_ds.draw_figure()
+
+
+
 
 
 
